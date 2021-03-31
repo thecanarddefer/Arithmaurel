@@ -42,7 +42,7 @@ function init() {
          // var dae = collada
          console.log(collada.scene)
          scene.add(collada.scene);
-         scene.add(collada.scene);
+       
         //   scene.add(collada.scene.children[2]);
 		   
        },
