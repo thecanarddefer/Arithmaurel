@@ -18,7 +18,7 @@ function init() {
      renderer.setSize( window.innerWidth, window.innerHeight );
      document.body.appendChild( renderer.domElement );
 
-     camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 1000 );
+     camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 10000 );
      camera.position.set( 20, 20, 0 );
 
      // controls
@@ -35,11 +35,15 @@ function init() {
    // instantiate a loader 
    var loader = new ColladaLoader();
    // instancie une roue
-   loader.load( 'modeles_3D/cubetexture.dae',
+   loader.load( 'modeles_3D/boitier.dae',
 
        // Function when resource is loaded
        function (collada) {
-           scene.add(collada.scene);
+         // var dae = collada
+         console.log(collada.scene)
+         scene.add(collada.scene);
+         scene.add(collada.scene);
+        //   scene.add(collada.scene.children[2]);
 		   
        },
        // Function called when download progresses
