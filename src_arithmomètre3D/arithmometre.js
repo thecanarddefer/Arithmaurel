@@ -41,6 +41,7 @@ var progress = document.getElementById('progression');
 loader.options.convertUpAxis = true;
 loader.setCrossOrigin("anonymous");
 loader.load( 'test/Export/Arithmometre-Export.dae', function ( collada ) {
+	// stocke l'objet dans dae
 	dae = collada.scene;
 	dae.traverse( function ( child ) {});
 	dae.scale.x = dae.scale.y = dae.scale.z = 1;
@@ -94,9 +95,10 @@ function init() {
 	pickingTexture.minFilter = THREE.LinearFilter;
 	pickingTexture.generateMipmaps = false;
 
-	// Add the COLLADA
+	// Add the COLLADA instancie chacun des objets et met que les element important
 	var longueurDAE = dae.children.length  // 87 objects
 	for(var i = 0 ; i < longueurDAE ; i++){ objects.push(dae.children[i]); }
+	// stocke dans les variables
 	for(i = 0 ; i < longueurDAE ; i++){ scene.add(objects[i]); }
 
 	//console.log(objects);
@@ -132,7 +134,7 @@ function init() {
 
 	// console.log(accumulateur[0].position.z-accumulateur[1].position.z);
 	pasDecalage = (accumulateur[1].position.z - accumulateur[0].position.z) - 0.045;
-
+	// stocke les enfants de chaque objets
 	for (var i=0; i<=5; i++)
 	{
 		engrAccu[i] = accumulateur[i].children[2];
