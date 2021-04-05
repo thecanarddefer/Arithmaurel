@@ -35,7 +35,7 @@ function init() {
    // instantiate a loader 
    var loader = new ColladaLoader();
    // instancie une roue
-   loader.load( 'modeles_3D/boitier2.dae',
+   loader.load( 'modeles_3D/test.dae',
 
        // Function when resource is loaded
        function (collada) {

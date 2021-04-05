@@ -5,8 +5,8 @@
       <author>Blender User</author>
       <authoring_tool>Blender 2.91.2 commit date:2021-01-19, commit time:16:15, hash:5be9ef417703</authoring_tool>
     </contributor>
-    <created>2021-04-04T17:46:11</created>
-    <modified>2021-04-04T17:46:11</modified>
+    <created>2021-04-04T20:31:30</created>
+    <modified>2021-04-04T20:31:30</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
@@ -171,18 +171,6 @@
         <matrix sid="transform">1 0 0 -0.08844471 0 1 0 -1.155344 0 0 1 -0.5113807 0 0 0 1</matrix>
         <instance_light url="#Point-light"/>
       </node>
-      <node id="fleche" name="fleche" type="NODE">
-        <matrix sid="transform">0.09691488 0 0 6.071032 0 2.020914 0 -3.214386 0 0 1 0.3525221 0 0 0 1</matrix>
-        <instance_geometry url="#Cube-mesh" name="fleche">
-          <bind_material>
-            <technique_common>
-              <instance_material symbol="Material_001-material" target="#Material_001-material">
-                <bind_vertex_input semantic="UVMap" input_semantic="TEXCOORD" input_set="0"/>
-              </instance_material>
-            </technique_common>
-          </bind_material>
-        </instance_geometry>
-      </node>
       <node id="Cylinder" name="Cylinder" type="NODE">
         <matrix sid="transform">0.35 0 0 2 0 0.35 0 -0.8289759 0 0 0.35 0 0 0 0 1</matrix>
         <instance_geometry url="#Cylinder_004-mesh" name="Cylinder">
@@ -194,6 +182,18 @@
             </technique_common>
           </bind_material>
         </instance_geometry>
+        <node id="fleche" name="fleche" type="NODE">
+          <matrix sid="transform">0.2768997 0 0 11.63152 0 5.77404 0 -6.815459 0 0 2.857143 1.007206 0 0 0 1</matrix>
+          <instance_geometry url="#Cube-mesh" name="fleche">
+            <bind_material>
+              <technique_common>
+                <instance_material symbol="Material_001-material" target="#Material_001-material">
+                  <bind_vertex_input semantic="UVMap" input_semantic="TEXCOORD" input_set="0"/>
+                </instance_material>
+              </technique_common>
+            </bind_material>
+          </instance_geometry>
+        </node>
       </node>
     </visual_scene>
   </library_visual_scenes>

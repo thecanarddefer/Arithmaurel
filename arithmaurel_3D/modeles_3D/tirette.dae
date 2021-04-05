@@ -5,8 +5,8 @@
       <author>Blender User</author>
       <authoring_tool>Blender 2.91.2 commit date:2021-01-19, commit time:16:15, hash:5be9ef417703</authoring_tool>
     </contributor>
-    <created>2021-04-04T18:03:01</created>
-    <modified>2021-04-04T18:03:01</modified>
+    <created>2021-04-04T20:38:00</created>
+    <modified>2021-04-04T20:38:00</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
@@ -634,33 +634,9 @@
   </library_geometries>
   <library_visual_scenes>
     <visual_scene id="Scene" name="Scene">
-      <node id="Cylinder_001" name="Cylinder.001" type="NODE">
-        <matrix sid="transform">5.88514e-16 -0.3080119 -4.28978e-8 -5.980076 -1.34636e-8 -1.34636e-8 0.9813865 -13.78104 -0.3080119 0 -4.28978e-8 -1.196015 0 0 0 1</matrix>
-        <instance_geometry url="#Cylinder_001-mesh" name="Cylinder.001">
-          <bind_material>
-            <technique_common>
-              <instance_material symbol="black_001-material" target="#black_001-material">
-                <bind_vertex_input semantic="UVMap" input_semantic="TEXCOORD" input_set="0"/>
-              </instance_material>
-            </technique_common>
-          </bind_material>
-        </instance_geometry>
-      </node>
-      <node id="Cylinder" name="Cylinder" type="NODE">
-        <matrix sid="transform">1.91069e-15 -1 -1.0822e-8 -5.981951 -4.37114e-8 -4.37114e-8 0.2475795 -14.05202 -1 0 -1.0822e-8 -1.195553 0 0 0 1</matrix>
-        <instance_geometry url="#Cylinder-mesh" name="Cylinder">
-          <bind_material>
-            <technique_common>
-              <instance_material symbol="lationtexture-material" target="#lationtexture-material">
-                <bind_vertex_input semantic="UVMap" input_semantic="TEXCOORD" input_set="0"/>
-              </instance_material>
-            </technique_common>
-          </bind_material>
-        </instance_geometry>
-      </node>
-      <node id="__001" name="9.001" type="NODE">
+      <node id="_" name="9" type="NODE">
         <matrix sid="transform">1.999788 0.02908948 2.94959e-7 -5.97713 -0.02908948 1.999788 -5.06493e-7 -1.822961 -3.02294e-7 5.02149e-7 2 -0.2944773 0 0 0 1</matrix>
-        <instance_geometry url="#Mesh_029-mesh" name="9.001">
+        <instance_geometry url="#Mesh_029-mesh" name="9">
           <bind_material>
             <technique_common>
               <instance_material symbol="black_006-material" target="#black_006-material"/>
@@ -668,9 +644,9 @@
           </bind_material>
         </instance_geometry>
       </node>
-      <node id="__0012" name="8.001" type="NODE">
+      <node id="_2" name="8" type="NODE">
         <matrix sid="transform">1.999391 -0.04935657 -6.59877e-7 -5.985649 0.04935656 1.999391 -1.12941e-6 -2.838089 6.87548e-7 1.11278e-6 2 -0.2944777 0 0 0 1</matrix>
-        <instance_geometry url="#Mesh_030-mesh" name="8.001">
+        <instance_geometry url="#Mesh_030-mesh" name="8">
           <bind_material>
             <technique_common>
               <instance_material symbol="black_006-material" target="#black_006-material"/>
@@ -678,9 +654,9 @@
           </bind_material>
         </instance_geometry>
       </node>
-      <node id="__0013" name="7.001" type="NODE">
+      <node id="_3" name="7" type="NODE">
         <matrix sid="transform">1.999759 0.03102502 3.90844e-6 -5.999 -0.03102503 1.999759 2.15647e-7 -3.851427 -3.90462e-6 -2.76251e-7 2 -0.2944781 0 0 0 1</matrix>
-        <instance_geometry url="#Mesh_028-mesh" name="7.001">
+        <instance_geometry url="#Mesh_028-mesh" name="7">
           <bind_material>
             <technique_common>
               <instance_material symbol="black_006-material" target="#black_006-material"/>
@@ -688,9 +664,9 @@
           </bind_material>
         </instance_geometry>
       </node>
-      <node id="__0014" name="6.001" type="NODE">
+      <node id="_4" name="6" type="NODE">
         <matrix sid="transform">1.994456 0.148814 4.74664e-7 -6.064344 -0.1488141 1.994456 -6.51998e-7 -4.814127 -5.21862e-7 6.14872e-7 2 -0.2944777 0 0 0 1</matrix>
-        <instance_geometry url="#Mesh_027-mesh" name="6.001">
+        <instance_geometry url="#Mesh_027-mesh" name="6">
           <bind_material>
             <technique_common>
               <instance_material symbol="black_006-material" target="#black_006-material"/>
@@ -698,9 +674,9 @@
           </bind_material>
         </instance_geometry>
       </node>
-      <node id="__0015" name="5.001" type="NODE">
+      <node id="_5" name="5" type="NODE">
         <matrix sid="transform">1.999999 -6.52723e-4 -1.09214e-7 -6.009092 6.52723e-4 2 -4.62026e-7 -5.850516 1.09365e-7 4.6199e-7 2 -0.2944777 0 0 0 1</matrix>
-        <instance_geometry url="#Mesh_026-mesh" name="5.001">
+        <instance_geometry url="#Mesh_026-mesh" name="5">
           <bind_material>
             <technique_common>
               <instance_material symbol="black_006-material" target="#black_006-material"/>
@@ -708,9 +684,9 @@
           </bind_material>
         </instance_geometry>
       </node>
-      <node id="__0016" name="4.001" type="NODE">
+      <node id="_6" name="4" type="NODE">
         <matrix sid="transform">1.999958 -0.01292459 -3.30259e-7 -6.048298 0.01292459 1.999959 -1.40714e-7 -6.805686 3.31162e-7 1.38577e-7 2 -0.2944773 0 0 0 1</matrix>
-        <instance_geometry url="#Mesh_023-mesh" name="4.001">
+        <instance_geometry url="#Mesh_023-mesh" name="4">
           <bind_material>
             <technique_common>
               <instance_material symbol="black_006-material" target="#black_006-material"/>
@@ -718,9 +694,9 @@
           </bind_material>
         </instance_geometry>
       </node>
-      <node id="__0017" name="3.001" type="NODE">
+      <node id="_7" name="3" type="NODE">
         <matrix sid="transform">1.997975 -0.08999145 -2.74287e-7 -6.002477 0.08999146 1.997974 1.5271e-7 -7.815276 2.67138e-7 -1.64897e-7 2 -0.2944773 0 0 0 1</matrix>
-        <instance_geometry url="#Mesh_022-mesh" name="3.001">
+        <instance_geometry url="#Mesh_022-mesh" name="3">
           <bind_material>
             <technique_common>
               <instance_material symbol="black_006-material" target="#black_006-material"/>
@@ -728,9 +704,9 @@
           </bind_material>
         </instance_geometry>
       </node>
-      <node id="__0018" name="2.001" type="NODE">
+      <node id="_8" name="2" type="NODE">
         <matrix sid="transform">1.999026 -0.06241554 -3.13593e-8 -6.017569 0.06241555 1.999026 3.05888e-7 -8.809128 2.17979e-8 -3.06718e-7 2 -0.2944777 0 0 0 1</matrix>
-        <instance_geometry url="#Mesh_025-mesh" name="2.001">
+        <instance_geometry url="#Mesh_025-mesh" name="2">
           <bind_material>
             <technique_common>
               <instance_material symbol="black_006-material" target="#black_006-material"/>
@@ -738,9 +714,9 @@
           </bind_material>
         </instance_geometry>
       </node>
-      <node id="__0019" name="1.001" type="NODE">
+      <node id="_9" name="1" type="NODE">
         <matrix sid="transform">1.99958 -0.04097188 2.50542e-7 -5.991414 0.04097188 1.99958 2.21303e-7 -9.819921 -2.55023e-7 -2.16124e-7 2 -0.2944773 0 0 0 1</matrix>
-        <instance_geometry url="#Mesh_024-mesh" name="1.001">
+        <instance_geometry url="#Mesh_024-mesh" name="1">
           <bind_material>
             <technique_common>
               <instance_material symbol="black_006-material" target="#black_006-material"/>
@@ -748,9 +724,9 @@
           </bind_material>
         </instance_geometry>
       </node>
-      <node id="__00110" name="0.001" type="NODE">
+      <node id="_10" name="0" type="NODE">
         <matrix sid="transform">-1.999889 -0.02106419 -3.85969e-7 -6.028445 0.02106419 -1.999889 9.71872e-8 -10.19591 -3.86971e-7 9.31167e-8 2 -0.2775505 0 0 0 1</matrix>
-        <instance_geometry url="#Mesh_021-mesh" name="0.001">
+        <instance_geometry url="#Mesh_021-mesh" name="0">
           <bind_material>
             <technique_common>
               <instance_material symbol="black_006-material" target="#black_006-material"/>
@@ -775,6 +751,30 @@
             <bind_material>
               <technique_common>
                 <instance_material symbol="Material_001-material" target="#Material_001-material">
+                  <bind_vertex_input semantic="UVMap" input_semantic="TEXCOORD" input_set="0"/>
+                </instance_material>
+              </technique_common>
+            </bind_material>
+          </instance_geometry>
+        </node>
+        <node id="Cylinder" name="Cylinder" type="NODE">
+          <matrix sid="transform">1.28576e-15 -0.672933 -7.28251e-9 0.03931141 -5.15319e-9 -5.15319e-9 0.02918747 -1.124567 -1.06296 0 -1.15034e-8 0.04741442 0 0 0 1</matrix>
+          <instance_geometry url="#Cylinder-mesh" name="Cylinder">
+            <bind_material>
+              <technique_common>
+                <instance_material symbol="lationtexture-material" target="#lationtexture-material">
+                  <bind_vertex_input semantic="UVMap" input_semantic="TEXCOORD" input_set="0"/>
+                </instance_material>
+              </technique_common>
+            </bind_material>
+          </instance_geometry>
+        </node>
+        <node id="VisNoir" name="VisNoir" type="NODE">
+          <matrix sid="transform">3.9603e-16 -0.2072713 -2.88673e-8 0.04057312 -1.58724e-9 -1.58724e-9 0.1156969 -1.092621 -0.3274043 0 -4.55986e-8 0.04692292 0 0 0 1</matrix>
+          <instance_geometry url="#Cylinder_001-mesh" name="VisNoir">
+            <bind_material>
+              <technique_common>
+                <instance_material symbol="black_001-material" target="#black_001-material">
                   <bind_vertex_input semantic="UVMap" input_semantic="TEXCOORD" input_set="0"/>
                 </instance_material>
               </technique_common>
