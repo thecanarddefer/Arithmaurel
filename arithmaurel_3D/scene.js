@@ -35,7 +35,7 @@ function init() {
    // instantiate a loader 
    var loader = new ColladaLoader();
    // instancie une roue
-   loader.load( 'modeles_3D/test.dae',
+   loader.load( 'modeles_3D/test2.dae',
 
        // Function when resource is loaded
        function (collada) {
@@ -54,6 +54,7 @@ function init() {
    // charger et positionner les autres éléments en dupliquant le code précédent
 
      // lights
+     /*
      var light = new THREE.DirectionalLight( 0xffffff );
      light.position.set( 1, 1, 1 );
      scene.add( light );
@@ -64,7 +65,9 @@ function init() {
 
      var light = new THREE.AmbientLight( 0x222222 );
      scene.add( light );
-
+     */
+     var lightAmb = new THREE.AmbientLight (0xffffff)
+     scene.add(lightAmb)
      window.addEventListener( 'resize', onWindowResize, false );
 }
 
