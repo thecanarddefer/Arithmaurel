@@ -35,11 +35,18 @@ function init() {
    // instantiate a loader 
    var loader = new ColladaLoader();
    // instancie une roue
-   loader.load( 'modeles_3D/Boitier+Roues+Tirettes.dae',
+   loader.load( 'modeles_3D/boitier.dae',
 
        // Function when resource is loaded
        function (collada) {
          // var dae = collada
+         // centrage de l'image
+         collada.scene.position.y = 0
+         collada.scene.position.x = 1
+         collada.scene.position.z = 10
+
+         collada.scene.rotation.y =-0.7
+         collada.scene.rotation.z += 7.8
          console.log(collada.scene)
          scene.add(collada.scene);
        
