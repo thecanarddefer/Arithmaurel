@@ -108,7 +108,8 @@
 	}
 
 	function captureStart (x, y, which) {  // which = 1 bouton gauche;  2 bouton droit 
-		if ((x > echelle*320) && (x < echelle*370) && (y > echelle*260) && (y < echelle*390)) { RAZdisk(5) } ;	
+		// on selection cle de remise a zero pas d'animation ici
+		if ((x > echelle*320) && (x < echelle*370) && (y > echelle*260) && (y < echelle*390)) { console.log("1"); RAZdisk(5) } ;	
 		captureOK = true; 
 		curCadr = curTiret = -1 ;
 	    for (var i = 0; i < 4; i++){

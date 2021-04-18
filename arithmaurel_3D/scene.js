@@ -98,8 +98,7 @@ function stockeObject(childrens){
      objectMove.push(ecrouCentre.children[2])
 
 
-     //childrenList(childrens[24])
-     //console.log(ecrouCentre)
+ 
      for(let i = 0; i <= 7; i++){
           cadrans.push(childrens[i])
      }
@@ -181,7 +180,7 @@ function onDocumentMouseUp(event){
 function onDocumentMouseDown(event){
      console.log("down")
      raycaster.setFromCamera( mouse, camera );
-    // console.log("o")
+  
      // quand on appuie sur la souris, teste si on intercepte un objet mobile
      // puis on traite les différents cas en fonction de l'objet selectionné
      // ecrou laiton, ecrouCentre, tirette
@@ -189,7 +188,18 @@ function onDocumentMouseDown(event){
     // console.log(ecrouCentre.children[0])
      // on a intercepté avec une image
      if ( intersects.length > 0 ) {
-         console.log(intersects)
+          switch(intersects[0].object.parent.name[0]){
+               case 'E':
+                    console.log("ecrou")
+                    break;
+               case 'T':
+                    console.log("tirette")
+                    break;
+               case 'R': 
+                    console.log("cle de remise a zero")
+                    break;
+          }
+
          document.body.style.cursor = 'ns-resize' ;
          // stoppe le controle sur les deplacements pour pouvoir bouger l'objet
          controls.enabled = false;
