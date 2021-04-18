@@ -12,7 +12,8 @@ var aiguilles = []; var cadrans = []; var ecrouLaitons = []; var tirettes = [];
 var objectMove = [];
 var objetchargee = 0;
 var raycaster = new THREE.Raycaster();
-
+var nbanimationsRZ = 80;
+var animeReturnZero;
 init();
 renderer.domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
 renderer.domElement.addEventListener( 'mousedown', onDocumentMouseDown, false );
@@ -93,12 +94,14 @@ function init() {
 // fonction qui initialise les objets mobiles
 function stockeObject(childrens){
      ecrouCentre = childrens[24];
+     ecrouCentre.rotation.x += Math.PI/5
      objectMove.push(ecrouCentre.children[0])
      objectMove.push(ecrouCentre.children[1])
      objectMove.push(ecrouCentre.children[2])
 
 
  
+
      for(let i = 0; i <= 7; i++){
           cadrans.push(childrens[i])
      }
@@ -136,19 +139,11 @@ function onWindowResize() {
 
 function animate() {
      requestAnimationFrame( animate );
-  
+     //console.log(objectMove[0])
      controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
-     render();
+     renderer.render( scene, camera );
 }
 
-
-
-
-function render() {
-  
-    renderer.render( scene, camera );
-  
-}    
 
 
 /**
@@ -178,6 +173,7 @@ function onDocumentMouseUp(event){
 
 
 function onDocumentMouseDown(event){
+     
      console.log("down")
      raycaster.setFromCamera( mouse, camera );
   
@@ -186,7 +182,7 @@ function onDocumentMouseDown(event){
      // ecrou laiton, ecrouCentre, tirette
 	const intersects = raycaster.intersectObjects(objectMove);
     // console.log(ecrouCentre.children[0])
-     // on a intercepté avec une image
+    // detection
      if ( intersects.length > 0 ) {
           switch(intersects[0].object.parent.name[0]){
                case 'E':
@@ -197,6 +193,7 @@ function onDocumentMouseDown(event){
                     break;
                case 'R': 
                     console.log("cle de remise a zero")
+                    animeRAZ(intersects[0].object);
                     break;
           }
 
@@ -210,3 +207,23 @@ function onDocumentMouseDown(event){
     // controls.enabled = false;
 }
 
+function animeRAZ(){
+     nbanimationsRZ --;
+     animeReturnZero = requestAnimationFrame(animeRAZ);
+     if(nbanimationsRZ >= 40){
+          ecrouCentre.rotation.x -= Math.PI/100;
+     }
+     else {
+          ecrouCentre.rotation.x += Math.PI/100;
+     }
+    // objectParent.parent.rotation.x -= Math.PI/50;
+   
+     renderer.render( scene, camera );
+     
+     if(nbanimationsRZ == 0){
+          console.log("fini")
+          nbanimationsRZ  = 80;
+          window.cancelAnimationFrame(animeReturnZero);	
+
+     }
+}
