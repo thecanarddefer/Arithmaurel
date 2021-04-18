@@ -8,11 +8,20 @@ const mouse = new THREE.Vector2();
 
 var ecrouCentre ;
 var childrens = [];
+// stocke les états
 var aiguilles = []; var cadrans = []; var ecrouLaitons = []; var tirettes = [];
+// stocke les objets mobiles
 var objectMove = [];
-var objetchargee = 0;
+
+// boleen pour l'etat de la souris (down)
+var down = 0;
+// variable si un evenement est déclenché
+var evenement = null;
 var raycaster = new THREE.Raycaster();
 var nbanimationsRZ = 80;
+//  numero de la tirette ou ecrou
+var num
+// variable pour stocker les evenements
 var animeReturnZero;
 init();
 renderer.domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
@@ -61,7 +70,7 @@ function init() {
            console.log(collada.scene.children)
           console.log("ok")
           // recuperations des elements
-         stockeObject(childrens)
+         stockeObject()
         //   scene.add(collada.scene.children[2]);
 		   
        },
@@ -92,15 +101,14 @@ function init() {
 }
 
 // fonction qui initialise les objets mobiles
-function stockeObject(childrens){
+// objectMove contient la liste des objets mobiles
+// on initialise en meme temps les etats des objets qui  peuvent varier après évènement
+function stockeObject(){
      ecrouCentre = childrens[24];
      ecrouCentre.rotation.x += Math.PI/5
      objectMove.push(ecrouCentre.children[0])
      objectMove.push(ecrouCentre.children[1])
      objectMove.push(ecrouCentre.children[2])
-
-
- 
 
      for(let i = 0; i <= 7; i++){
           cadrans.push(childrens[i])
@@ -113,7 +121,7 @@ function stockeObject(childrens){
           objectMove.push(childrens[i].children[10])
           
      }
-     console.log(tirettes)
+     //console.log(tirettes)
      for(let i = 8 ;i <= 11; i++){
           aiguilles.push(childrens[i])
      }
@@ -121,12 +129,12 @@ function stockeObject(childrens){
      //console.log(aiguilles)
      for(let i = 20 ;i <= 23; i++){
           ecrouLaitons.push(childrens[i])
-         objectMove.push(childrens[i].children[0])
+          objectMove.push(childrens[i].children[0])
         
      }
      ecrouLaitons.reverse()
     //console.log(ecrouLaitons)
-     objetchargee = 1
+
      console.log("object")
      console.log(objectMove)
 }
@@ -147,60 +155,79 @@ function animate() {
 
 
 /**
- * Lorsque la souris bouge, met a jour coordonnee de la souris
+ * Lorsque la souris bouge, met a jour coordonnee de la souris 
+ * permet de faire bouger les elements si le click est enfoncée
  */
 function onDocumentMouseMove(event){
-     //console.log(event)
-     //console.log("move")
+  
      // recupere position de la souris quand on bouge
      mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-     //console.log(mouse)
+  //   console.log(mouse)
 
-
+     if(down &&  evenement != null && evenement[0] != 'R'){
+          switch(evenement[0]){
+               // l'ecrou bouge
+               case 'E':
+                    console.log(evenement[5])
+                    num = evenement[5] - 1;
+                    console.log(num)
+                    animeEcrou()
+                    break;
+               // la tirette bouge
+               case 'T':
+                    console.log("tirette");
+                    num = evenement[7] -1;
+                    console.log(num)
+                    animeTirette()
+                    break;
+          }
+          console.log("evenement appuye")
+     }
      // si on a le bouton down et que un objet a ete selectionne, on peut bouger l'objet
      raycaster.setFromCamera( mouse, camera );
 
 
 }
 
-
+/**
+ * traite l'evenement up dans ce cas redonne le controle a l'utilisateur ou termine evenement lorsque l'on bouge les parties mobiles 
+ */
 function onDocumentMouseUp(event){
+     down = 0;
      console.log("up")
      document.body.style.cursor = 'auto' ;
      controls.enabled = true;
+     evenement = null;
 }
 
 
 function onDocumentMouseDown(event){
-     
+     down = 1;
      console.log("down")
      raycaster.setFromCamera( mouse, camera );
-  
+    // stoppe le controle sur les deplacements pour pouvoir bouger l'objet
+   
      // quand on appuie sur la souris, teste si on intercepte un objet mobile
      // puis on traite les différents cas en fonction de l'objet selectionné
      // ecrou laiton, ecrouCentre, tirette
 	const intersects = raycaster.intersectObjects(objectMove);
-    // console.log(ecrouCentre.children[0])
+     
     // detection
      if ( intersects.length > 0 ) {
-          switch(intersects[0].object.parent.name[0]){
-               case 'E':
-                    console.log("ecrou")
-                    break;
-               case 'T':
-                    console.log("tirette")
-                    break;
+          controls.enabled = false;
+          evenement = intersects[0].object.parent.name;
+          switch( evenement[0]){
                case 'R': 
                     console.log("cle de remise a zero")
-                    animeRAZ(intersects[0].object);
+                    animeRAZ();
                     break;
           }
 
-         document.body.style.cursor = 'ns-resize' ;
-         // stoppe le controle sur les deplacements pour pouvoir bouger l'objet
-         controls.enabled = false;
 
+         document.body.style.cursor = 'ns-resize' ;
+       
+          console.log(evenement)
      }
 
      // on stoppe le control pour la position de l'arithmmaurel
@@ -226,4 +253,13 @@ function animeRAZ(){
           window.cancelAnimationFrame(animeReturnZero);	
 
      }
+}
+
+function animeTirette(){
+
+}
+
+
+function animeEcrou(){
+
 }
