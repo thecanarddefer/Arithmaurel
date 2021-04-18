@@ -9,6 +9,7 @@ const mouse = new THREE.Vector2();
 var ecrouCentre ;
 var childrens = [];
 var aiguilles = []; var cadrans = []; var ecrouLaitons = []; var tirettes = [];
+var objectMove = [];
 var objetchargee = 0;
 var raycaster = new THREE.Raycaster();
 
@@ -91,27 +92,41 @@ function init() {
 
 // fonction qui initialise les objets mobiles
 function stockeObject(childrens){
-     ecrouCentre = childrens[1];
+     ecrouCentre = childrens[24];
+     objectMove.push(ecrouCentre.children[0])
+     objectMove.push(ecrouCentre.children[1])
+     objectMove.push(ecrouCentre.children[2])
+
+
+     //childrenList(childrens[24])
      //console.log(ecrouCentre)
-     for(let i = 2; i <= 5; i++){
-          ecrouLaitons.push(childrens[i])
-     }
-    console.log(ecrouLaitons)
-     for(let i = 6 ;i <= 13; i++){
-          tirettes.push(childrens[i])
-     }
-     tirettes.reverse()
-     console.log(tirettes)
-     for(let i = 14 ;i <= 17; i++){
-          aiguilles.push(childrens[i])
-     }
-     console.log(aiguilles)
-     for(let i = 18 ;i <= 25; i++){
+     for(let i = 0; i <= 7; i++){
           cadrans.push(childrens[i])
      }
-     cadrans.reverse()
-     console.log(cadrans)
+     //console.log(cadrans)
+
+     for(let i = 12 ;i <= 19; i++){
+          tirettes.push(childrens[i])
+          objectMove.push(childrens[i].children[12])
+          objectMove.push(childrens[i].children[10])
+          
+     }
+     console.log(tirettes)
+     for(let i = 8 ;i <= 11; i++){
+          aiguilles.push(childrens[i])
+     }
+     aiguilles.reverse()
+     //console.log(aiguilles)
+     for(let i = 20 ;i <= 23; i++){
+          ecrouLaitons.push(childrens[i])
+         objectMove.push(childrens[i].children[0])
+        
+     }
+     ecrouLaitons.reverse()
+    //console.log(ecrouLaitons)
      objetchargee = 1
+     console.log("object")
+     console.log(objectMove)
 }
 
 function onWindowResize() {
@@ -138,7 +153,7 @@ function render() {
 
 
 /**
- * Lorsque la souris bouge, traite l'évènement
+ * Lorsque la souris bouge, met a jour coordonnee de la souris
  */
 function onDocumentMouseMove(event){
      //console.log(event)
@@ -148,7 +163,8 @@ function onDocumentMouseMove(event){
 	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
      //console.log(mouse)
 
-     // initialise intersection
+
+     // si on a le bouton down et que un objet a ete selectionne, on peut bouger l'objet
      raycaster.setFromCamera( mouse, camera );
 
 
@@ -157,22 +173,28 @@ function onDocumentMouseMove(event){
 
 function onDocumentMouseUp(event){
      console.log("up")
+     controls.enabled = true;
 }
 
 
 function onDocumentMouseDown(event){
      console.log("down")
      raycaster.setFromCamera( mouse, camera );
-     console.log("o")
+    // console.log("o")
      // quand on appuie sur la souris, teste si on intercepte un objet mobile
      // puis on traite les différents cas en fonction de l'objet selectionné
-	const intersects = raycaster.intersectObjects(ecrouCentre.children);
+     // ecrou laiton, ecrouCentre, tirette
+	const intersects = raycaster.intersectObjects(objectMove);
     // console.log(ecrouCentre.children[0])
      // on a intercepté avec une image
      if ( intersects.length > 0 ) {
          console.log(intersects)
+         // stoppe le controle sur les deplacements pour pouvoir bouger l'objet
+         controls.enabled = false;
+
      }
 
      // on stoppe le control pour la position de l'arithmmaurel
     // controls.enabled = false;
 }
+
