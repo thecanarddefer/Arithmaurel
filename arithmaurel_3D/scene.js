@@ -173,6 +173,7 @@ function onDocumentMouseMove(event){
 
 function onDocumentMouseUp(event){
      console.log("up")
+     document.body.style.cursor = 'auto' ;
      controls.enabled = true;
 }
 
@@ -189,6 +190,7 @@ function onDocumentMouseDown(event){
      // on a intercepté avec une image
      if ( intersects.length > 0 ) {
          console.log(intersects)
+         document.body.style.cursor = 'ns-resize' ;
          // stoppe le controle sur les deplacements pour pouvoir bouger l'objet
          controls.enabled = false;
 
