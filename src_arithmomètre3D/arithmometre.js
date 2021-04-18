@@ -380,7 +380,9 @@ function onDocumentMouseMove( event ) {
 		return;
 	}
 	
+	// intersection avec un objet mobile
 	var intersects = raycaster.intersectObjects( cubeMesh );
+	// si une intersection
 	if ( intersects.length > 0 ) {
 		if ( INTERSECTED != intersects[ 0 ].object ) {
 			if ( INTERSECTED ) INTERSECTED.material.color.setHex( INTERSECTED.currentHex );
@@ -389,6 +391,7 @@ function onDocumentMouseMove( event ) {
 			plane.position.copy( INTERSECTED.position );
 			plane.lookAt( camera.position );
 		}
+		// change en pointeur tout les objet mobiles
 		container.style.cursor = 'pointer';
 	} else {
 		if ( INTERSECTED ) INTERSECTED.material.color.setHex( INTERSECTED.currentHex );
@@ -404,6 +407,7 @@ function onDocumentMouseDown( event ) {
 	var intersects = raycaster.intersectObjects( cubeMesh );
 	if ( intersects.length > 0) {
 		controls.enabled = false;
+		// select est l'objet selectionnee
 		SELECTED = intersects[ 0 ].object;
 		var intersects = raycaster.intersectObject( plane );
 		if ( intersects.length > 0 ) {
@@ -476,6 +480,7 @@ function onDocumentMouseUp( event ) {
 	container.style.cursor = 'auto';
 }
 
+// change la valeur du cursuer dans le bouton
 function SpitCurseurNum (){
 	document.getElementById('curseurNum').innerHTML = '&nbsp;';
 	for(var j = curseur.length -1; j>= 0 ; j--) {

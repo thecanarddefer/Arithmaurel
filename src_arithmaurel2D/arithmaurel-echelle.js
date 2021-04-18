@@ -122,6 +122,7 @@
 			else { oldAngl = Math.PI - Math.atan ( - (y - echelle*cadrnAxeY[curCadr]) / (x - echelle*cadrnAxeX[curCadr]) ) ; }
 		} 
 		if (y > echelle*posCadreH && y < echelle*posCadreB && x > echelle*posCadreD && x < echelle*posCadreG){ //got tirettes
+			// changement du curseur
 			document.body.style.cursor = 'ns-resize' ;
 			temp = (echelle*posCadreG - echelle*posCadreD) / 7 ;
 			for (var i = 0; i < 8; i++){ if (x > echelle*posCadreD - (temp/2) + (temp*i)) { curTiret = 7-i } };			 
