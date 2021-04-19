@@ -363,7 +363,7 @@ function onDocumentMouseMove( event ) {
 	event.preventDefault();
 	mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-
+	let test = 0;
 	lamp.position.z = -mouse.x *15;
 	lamp.position.x = -mouse.y *15;
 	lamp.position.y = 5;
@@ -375,7 +375,8 @@ function onDocumentMouseMove( event ) {
 		var intersects = raycaster.intersectObject( plane );
 
 		if ( intersects.length > 0 ) {
-			SELECTED.position.copy( intersects[ 0 ].point.sub( offset ) );
+			test = SELECTED.position.copy( intersects[ 0 ].point.sub( offset ) );
+			console.log(test)
 		}
 		return;
 	}
@@ -433,12 +434,16 @@ function curseurMove(){
 	if ( INTERSECTED ) {
 		plane.position.copy( INTERSECTED.position );
 		for(var j = 0; j<curseur.length ; j++){
+			// si on clique et que l'on a selectionné un curseur
 			if (click && SELECTED){
+				// si le nom selectionne est le curseur numero j
 				if(SELECTED.name == "cur_"+j  && !enCours){
+					// po
 					for (var k = 0; k < 10; k++) {
 						if (SELECTED.position.x < 0.764 + k * pitchCurseur) {
 							if ( oldValCur != k)
 							{
+								// change le valeur stocké
 								positionCurseur[j] = 9-k ;
 								SpitCurseurNum () ;
 								playNcliks(Math.abs(oldValCur - k)) ;
@@ -480,7 +485,7 @@ function onDocumentMouseUp( event ) {
 	container.style.cursor = 'auto';
 }
 
-// change la valeur du cursuer dans le bouton
+// change la valeur du curseurr dans le bouton et le met a jour
 function SpitCurseurNum (){
 	document.getElementById('curseurNum').innerHTML = '&nbsp;';
 	for(var j = curseur.length -1; j>= 0 ; j--) {
