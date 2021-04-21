@@ -12,6 +12,7 @@ var aiguilles = [];
 var cadrans = [];
 var ecrouLaitons = [];
 var tirettes = [];
+var val_Tirettes = [];
 // stocke les objets mobiles
 var objectMove = [];
 
@@ -135,6 +136,7 @@ function stockeObject() {
         tirettes.push(childrens[i])
         objectMove.push(childrens[i].children[12])
         objectMove.push(childrens[i].children[10])
+        val_Tirettes.push(0)
 
     }
     //console.log(tirettes)
@@ -318,6 +320,7 @@ function animeTirette() {
             tirette.position.x = 6.081
         }
     }
+    //mettre la valeur discretisé 
 
 }
 
