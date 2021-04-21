@@ -43,6 +43,7 @@ renderer.domElement.addEventListener('mouseup', onDocumentMouseUp, false);
 
 let b = document.getElementById("aig");
 b.addEventListener("click", razAiguilles);
+b.style.position="absolute";
 
 function init() {
 
