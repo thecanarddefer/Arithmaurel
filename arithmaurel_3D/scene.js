@@ -41,6 +41,9 @@ renderer.domElement.addEventListener('mousemove', onDocumentMouseMove, false);
 renderer.domElement.addEventListener('mousedown', onDocumentMouseDown, false);
 renderer.domElement.addEventListener('mouseup', onDocumentMouseUp, false);
 
+let b = document.getElementById("aig");
+b.addEventListener("click", razAiguilles);
+
 function init() {
 
     // Scene
@@ -335,4 +338,14 @@ function animeEcrou() {
     let rotationTranslate = MoldX - mouse.x;
     ecrou.rotation.x += rotationTranslate
     aiguille.rotation.x += rotationTranslate
+}
+
+/** 
+ * Remet à la position initile les aiguilles
+*/
+function razAiguilles(){
+    for(let i=0; i<aiguilles.length; i++){
+        ecrouLaitons[i].rotation.x = -3.137;
+        aiguilles[i].rotation.x = 1.585;
+    }
 }
