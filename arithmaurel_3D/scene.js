@@ -384,7 +384,9 @@ function razTotaliseur() {
 function discretisationTirette() {
     if (last_Tirette > -1) {
         let tirette = tirettes[last_Tirette]
-        if (tirette.position.x > 6.20 && tirette.position.x < 6.488) {
+        if(tirette.position.x < 6.20){
+            val_Tirettes[last_Tirette] = 0
+        } else if (tirette.position.x > 6.20 && tirette.position.x < 6.488) {
             tirette.position.x = 6.479
             val_Tirettes[last_Tirette] = 0
         } else if (tirette.position.x >= 6.488 && tirette.position.x < 6.73) {
