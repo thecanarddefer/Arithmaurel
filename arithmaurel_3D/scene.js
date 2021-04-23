@@ -75,7 +75,7 @@ function init() {
 
     //Camera
     camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 2000);
-    camera.position.set(30, 0, 0);
+    camera.position.set(25, 10, 0);
 
     // Controles
     controls = new OrbitControls(camera, renderer.domElement);
@@ -384,7 +384,7 @@ function razTotaliseur() {
 function discretisationTirette() {
     if (last_Tirette > -1) {
         let tirette = tirettes[last_Tirette]
-        if(tirette.position.x < 6.20){
+        if (tirette.position.x < 6.20) {
             val_Tirettes[last_Tirette] = 0
         } else if (tirette.position.x > 6.20 && tirette.position.x < 6.488) {
             tirette.position.x = 6.479
