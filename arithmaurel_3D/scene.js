@@ -4,7 +4,7 @@ import { BruitBouton } from './sound.js'
 import { camera, controls, tirettes, val_Tirettes, angleInitCadrans, scene, renderer, objectMove, ecrouCentre, cadrans, aiguilles, ecrouLaitons, fantAiguilles, inputCadr, init } from './initScene.js'
 import { faceDessus, faceVue } from './vueChangement.js'
 import { razAiguilles } from './animeAiguillesRaz.js'
-import { razTotaliseur, cadransNormal } from './animeTotaliseurRaz.js'
+import { razTotaliseur, cadransNormal, majPosCadran } from './animeTotaliseurRaz.js'
 
 
 // stocke les états
@@ -43,6 +43,7 @@ var intersection = new THREE.Vector3();
 var oldAngleEcrou, newAngleEcrou;
 var oldAngleCentre, newAnglecentre;
 var etat = 0;
+var raz;
 init();
 animate();
 
@@ -134,7 +135,9 @@ function onDocumentMouseMove(event) {
  */
 function onDocumentMouseUp(event) {
     discretisationTirette()
-        //event.preventDefault()
+    razCentreRelache()
+
+    //event.preventDefault()
     BruitBouton.pause()
     BruitBouton.currentTime = 0
     evenement = null;
@@ -185,33 +188,7 @@ function onDocumentMouseDown(event) {
 
 
 
-/**
- *  fonction d'animation de la tirette si on translate vers le haut => diminution valeur de la tirette
- * si translate souris vers le bas => augmentation de la valeur de la tirette
- */
-function animeTirette() {
-    document.body.style.cursor = 'ns-resize';
-    // quand on appuis cela calcul
-    // plante si on sort de l'ecran
-    let numero = evenement[7] - 1
-    let tirette = tirettes[numero]
 
-    // ne pas oublier cette ligne pour maj les coordonnees de la souris
-    raycaster.setFromCamera(mouse, camera);
-    // calcul intersection souris plan => intersection
-    raycaster.ray.intersectPlane(planeDessus, intersection);
-    tirette.position.x = -1.95 + intersection.x
-
-    // limite du systeme
-    if (tirette.position.x < 6.08) {
-        tirette.position.x = 6.081
-    }
-    if (tirette.position.x > 8.8) {
-        tirette.position.x = 8.79999
-    }
-    last_Tirette = numero
-
-}
 
 var ecrouCentrecoord = []
 ecrouCentrecoord.push(0.18312431445661992)
@@ -222,9 +199,8 @@ function animeCentre() {
     raycaster.setFromCamera(mouse, camera);
     // calcul intersection souris plan => intersection
     raycaster.ray.intersectPlane(planeFace, intersection);
-    console.log("zintersection" + intersection.z)
-    console.log("yintersection" + intersection.y)
-    console.log(intersection.y)
+    //console.log("zintersection" + intersection.z)
+    //console.log("yintersection" + intersection.y)
     if (intersection.y > ecrouCentrecoord[0])
         newAnglecentre = +Math.atan((intersection.z - ecrouCentrecoord[1]) / (intersection.y - ecrouCentrecoord[0])) - Math.PI / 2
 
@@ -236,15 +212,16 @@ function animeCentre() {
         pas = 0;
         etat = 0
     }
-    // cadrans remise a zero
+    // cadrans remise a zero a la fin, revient a la position initiale
+    // si on decale vers la droite va de 216 a 138
+
     if (pas < 0) {
-        for (let i = 0; i < 8; i++) {
-            cadrans[i].rotation.x += pas * Math.PI * 1.2;
-            if (cadrans[i].rotation.x < angleInitCadrans[i]) {
-                cadrans[i].rotation.x = angleInitCadrans[i];
-            }
-        }
+        majPosCadran()
     }
+
+    // va de 216 a 138 degres
+    // pas negatidf donc tourne sens horaire gauche droite 9 -> 0
+    //  console.log("valeur angle centre: " + ecrouCentre.rotation.x * 180 / Math.PI)
     ecrouCentre.rotation.x += pas
     oldAngleCentre = newAnglecentre
     if (ecrouCentre.rotation.x * 180 / Math.PI > 216) {
@@ -254,6 +231,9 @@ function animeCentre() {
         ecrouCentre.rotation.x = 138.0001 * Math.PI / 180
     }
 }
+
+
+
 
 // coordonnees centres écrous
 // 1 :  y= -2, z = -3
@@ -282,6 +262,7 @@ function animeEcrou() {
     // calcul intersection souris plan => intersection
     raycaster.ray.intersectPlane(planeFace, intersection);
     // mettre 2 if
+    console.log("intersection")
     if (intersection.z <= coord[numero][1]) {
         newAngleEcrou = -Math.atan((intersection.y - coord[numero][0]) / (intersection.z - coord[numero][1])) + 3 * Math.PI / 2
     } else {
@@ -294,7 +275,7 @@ function animeEcrou() {
     }
 
     ecrou.rotation.x += pas;
-    console.log("pas = " + pas);
+    //console.log("pas = " + pas);
 
     if (pas > Math.PI) {
         pas -= Math.PI;
@@ -329,7 +310,7 @@ function animeEcrou() {
  */
 function calcResult(numero, increment) {
     produit += multiplicande * increment * Math.pow(10, numero);
-    console.log('numero = ' + numero + ' increment = ' + increment + ' produit = ' + produit.toFixed(4));
+    //console.log('numero = ' + numero + ' increment = ' + increment + ' produit = ' + produit.toFixed(4));
 
     var retenue = 0; // pour le passage progressif de 9 à 0 ou de 0 à 9
     for (var i = numero; i < 8; i++) {
@@ -349,46 +330,79 @@ function calcResult(numero, increment) {
 
 
 
+/**
+ *  fonction d'animation de la tirette si on translate vers le haut => diminution valeur de la tirette
+ * si translate souris vers le bas => augmentation de la valeur de la tirette
+ */
+function animeTirette() {
+    document.body.style.cursor = 'ns-resize';
+    // quand on appuis cela calcul
+    // plante si on sort de l'ecran
+    let numero = evenement[7] - 1
+    let tirette = tirettes[numero]
 
+    // ne pas oublier cette ligne pour maj les coordonnees de la souris
+    raycaster.setFromCamera(mouse, camera);
+    // calcul intersection souris plan => intersection
+    raycaster.ray.intersectPlane(planeDessus, intersection);
+    tirette.position.x = -1.95 + intersection.x
 
+    // limite du systeme
+    if (tirette.position.x < 6.08) {
+        tirette.position.x = 6.081
+    }
+    if (tirette.position.x > 8.8) {
+        tirette.position.x = 8.79999
+    }
+    last_Tirette = numero
+    discretisationTiretteC()
+}
 
-
+function discretisationTiretteC() {
+    let tirette = tirettes[last_Tirette]
+    if (tirette.position.x >= 6.5) {
+        val_Tirettes[last_Tirette] = (tirette.position.x - 6.5) * 3.92
+        val_Tirettes[last_Tirette] = val_Tirettes[last_Tirette].toFixed(2)
+    }
+    affichTirette()
+}
 
 function discretisationTirette() {
+    // difference de 0.1255
     if (last_Tirette > -1) {
         let tirette = tirettes[last_Tirette]
         if (tirette.position.x < 6.20) {
-            tirette.position.x = 6.081
+            tirette.position.x = 6.1
             val_Tirettes[last_Tirette] = 0
-        } else if (tirette.position.x > 6.20 && tirette.position.x < 6.488) { // 6,488-6,20=0,288
-            tirette.position.x = 6.479
+        } else if (tirette.position.x > 6.20 && tirette.position.x < 6.6275) {
+            tirette.position.x = 6.5
             val_Tirettes[last_Tirette] = 0
-        } else if (tirette.position.x >= 6.488 && tirette.position.x < 6.73) { // 6,73-6,488 = 0.242
-            tirette.position.x = 6.72
+        } else if (tirette.position.x >= 6.6275 && tirette.position.x < 6.8825) {
+            tirette.position.x = 6.755
             val_Tirettes[last_Tirette] = 1
-        } else if (tirette.position.x >= 6.73 && tirette.position.x < 7.052) { // 7,052-6,73 = 0.322
-            tirette.position.x = 7
+        } else if (tirette.position.x >= 6.8825 && tirette.position.x < 7.1375) {
+            tirette.position.x = 7.01
             val_Tirettes[last_Tirette] = 2
-        } else if (tirette.position.x >= 7.052 && tirette.position.x < 7.25) { // 7,25-7,052 = 0.198
-            tirette.position.x = 7.247
+        } else if (tirette.position.x >= 7.1375 && tirette.position.x < 7.3925) {
+            tirette.position.x = 7.265
             val_Tirettes[last_Tirette] = 3
-        } else if (tirette.position.x >= 7.25 && tirette.position.x < 7.5) { // 7.5-7.25 = 0.25
-            tirette.position.x = 7.498
+        } else if (tirette.position.x >= 7.3925 && tirette.position.x < (7.52 + 7.775) / 2) {
+            tirette.position.x = 7.52
             val_Tirettes[last_Tirette] = 4
-        } else if (tirette.position.x >= 7.5 && tirette.position.x < 7.75) { // 7.75-7.5 = 0.25
-            tirette.position.x = 7.741
+        } else if (tirette.position.x >= (7.52 + 7.775) / 2 && tirette.position.x < (7.775 + 8.03) / 2) {
+            tirette.position.x = 7.775
             val_Tirettes[last_Tirette] = 5
-        } else if (tirette.position.x >= 7.75 && tirette.position.x < 8) { // 8-7.75 = 0.25
-            tirette.position.x = 7.991
+        } else if (tirette.position.x >= (7.775 + 8.03) / 2 && tirette.position.x < (8.03 + 8.285) / 2) {
+            tirette.position.x = 8.03
             val_Tirettes[last_Tirette] = 6
-        } else if (tirette.position.x >= 8 && tirette.position.x < 8.32) { // 8.32-8 = 0.32
-            tirette.position.x = 8.296
+        } else if (tirette.position.x >= (8.03 + 8.285) / 2 && tirette.position.x < (8.54 + 8.285) / 2) {
+            tirette.position.x = 8.285
             val_Tirettes[last_Tirette] = 7
-        } else if (tirette.position.x >= 8.32 && tirette.position.x < 8.6) { //8.6-8.32 = 0.28
-            tirette.position.x = 8.537
+        } else if (tirette.position.x >= (8.54 + 8.285) / 2 && tirette.position.x < (8.54 + 8.795) / 2) {
+            tirette.position.x = 8.54
             val_Tirettes[last_Tirette] = 8
-        } else if (tirette.position.x >= 8.6 && tirette.position.x < 8.8) { // 8.8-8.6 = 0.2
-            tirette.position.x = 8.799
+        } else if (tirette.position.x >= (8.795 + 8.54) / 2 && tirette.position.x < 8.8) {
+            tirette.position.x = 8.795
             val_Tirettes[last_Tirette] = 9
         }
         last_Tirette = -1
@@ -402,5 +416,19 @@ function affichTirette() {
     for (let i = 7; i >= 0; i--) {
         document.getElementById('tirette').innerHTML += val_Tirettes[i] + '&nbsp;'
         multiplicande = 10 * multiplicande + val_Tirettes[i];
+    }
+}
+
+function razCentreRelache() {
+    raz = setInterval(decrement, 100)
+}
+
+function decrement() {
+    ecrouCentre.rotation.x += Math.PI / 50
+    console.log(ecrouCentre.rotation.x * 180 / Math.PI)
+    if (ecrouCentre.rotation.x * 180 / Math.PI > 216) {
+        ecrouCentre.rotation.x = 216 * Math.PI / 180
+        clearInterval(raz)
+
     }
 }
